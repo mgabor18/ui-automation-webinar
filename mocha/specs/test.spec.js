@@ -64,15 +64,20 @@ describe("Search for job", function () {
           .true;
       });
 
-      it("should have jobs with proper location", async () => {
-        const location = await element(by.css(".search-result__item"))
+      it.only("should have jobs with proper location", async () => {
+        const location = await element
+          .all(by.css(".search-result__item"))
+          .get(0)
           .element(by.cssContainingText(".search-result__location", testData.country))
           .getText();
         expect(location).to.include(testData.country.toUpperCase());
       });
 
       it("should have jobs with description", async () => {
-        let desc = await element(by.css(".search-result__item")).element(by.css(".search-result__item-description"));
+        let desc = await element
+          .all(by.css(".search-result__item"))
+          .get(0)
+          .element(by.css(".search-result__item-description"));
         expect(desc.isDisplayed()).to.eventually.be.true;
       });
 
@@ -104,7 +109,7 @@ describe("Search for job", function () {
 
 async function load() {
   await browser.get("https://www.epam.com/careers");
-  browser.wait(ec.elementToBeClickable(element(by.css(".header__logo"))), GLOBAL_TIMEOUT);
+  await browser.wait(ec.elementToBeClickable(element(by.css(".header__logo"))), GLOBAL_TIMEOUT);
   await cookieClicker();
 }
 
@@ -122,7 +127,7 @@ async function applyForJob(data) {
     GLOBAL_TIMEOUT
   );
   await element(by.cssContainingText(`a[href*='.${jobFormat}']`, "View and apply")).click();
-  browser.wait(ec.presenceOf(element(by.css(".form-component__description div"))), GLOBAL_TIMEOUT);
+  await browser.wait(ec.presenceOf(element(by.css(".form-component__description div"))), GLOBAL_TIMEOUT);
 }
 
 async function searchJob(data) {
