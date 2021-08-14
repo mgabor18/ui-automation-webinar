@@ -13,9 +13,24 @@ Before(() => {
 Given(/the career page is opened/, async function () {
   return browser.get("https://www.epam.com/careers");
 });
-Then(/the cookie bar should be closed/, async function () {
+
+When(/the cookie bar is closed/, async function () {
   return cookieClicker();
 });
+When(/(.*) selected in the department filter box/, async function (department) {
+  return selectDepartment(department);
+});
+When(/(.*) and (.*) selected in the location filter box/, async function (country, city) {
+  return selectLocation(country, city);
+});
+When(/the search button is clicked/, async function () {
+  return await element(by.css(".recruiting-search__submit")).click();
+});
+When(/the apply button for (.*) is clicked/, async function (positionName) {
+  const jobFormat = positionName.toLowerCase().split(" ").join("-");
+  return applyForJob(jobFormat);
+});
+
 Then(/the logo should be visible/, async function () {
   return expect(element(by.css(".header__logo")).isDisplayed()).to.eventually.be.true;
 });
@@ -23,45 +38,40 @@ Then(/the searchform should be visible/, async function () {
   return expect(element(by.css(".job-search__form")).isDisplayed()).to.eventually.be.true;
 });
 
-When(/(.*) and (.*) selected in the location filter box/, async function (country, city) {
-  return selectLocation(country, city);
-});
 Then(/the (.*) location should be selected/, async function (city) {
   return expect(element(by.css(".select2-selection__rendered")).getText()).to.eventually.equal(city);
 });
 
-When(/(.*) selected in the department filter box/, async function (department) {
-  return selectDepartment(department);
-});
 Then(/the (.*) department should be selected/, async function (department) {
   return expect(element(by.css(`li[data-value="${department}"]`)).isEnabled()).to.eventually.be.true;
 });
 
-When(/the search button is clicked/, async function () {
-  return await element(by.css(".recruiting-search__submit")).click();
+Then(/the correct url should be present for the search results page/, async function () {
+  const url = await browser.getCurrentUrl();
+  expect(url).to.include("job-listings?");
 });
-Then(/should have a proper job found for (.*) position/, async function (positionName) {
+Then(/should have a proper job found for (.*) on the (.*). position/, async function (positionName, nthJob) {
   const jobFormat = positionName.toLowerCase().split(" ").join("-");
   return expect(
     element(by.css(`a.search-result__item-name[href*='.${jobFormat}']`)).isDisplayed()
   ).to.eventually.be.true;
 });
-Then(/the proper location in the first result should be (.*)/, async function (country) {
+Then(/the proper location in the (.*). result should be (.*)/, async function (nthJob, country) {
   const location = await element
     .all(by.css(".search-result__item"))
-    .get(0)
+    .get(nthJob - 1)
     .element(by.cssContainingText(".search-result__location", country))
     .getText();
   return expect(location).to.include(country.toUpperCase());
 });
-Then(/description should be visible in the first result/, async function () {
+Then(/description should be visible in the (.*). result/, async function (nthJob) {
   let desc = await element
     .all(by.css(".search-result__item"))
-    .get(0)
+    .get(nthJob - 1)
     .element(by.css(".search-result__item-description"));
   return expect(desc.isDisplayed()).to.eventually.be.true;
 });
-Then(/apply button should be visible for (.*) position/, async function (positionName) {
+Then(/apply button should be visible for the (.*) position/, async function (positionName) {
   const jobFormat = positionName.toLowerCase().split(" ").join("-");
   const button = await element(by.css(`a.search-result__item-apply[href*='.${jobFormat}']`));
   const buttonText = await element(by.css(`a.search-result__item-apply[href*='.${jobFormat}']`)).getText();
@@ -69,9 +79,9 @@ Then(/apply button should be visible for (.*) position/, async function (positio
   return expect(buttonText).to.include("VIEW AND APPLY");
 });
 
-When(/the apply button for (.*) is clicked/, async function (positionName) {
-  const jobFormat = positionName.toLowerCase().split(" ").join("-");
-  return applyForJob(jobFormat);
+Then(/the correct url should be present for the job details page/, async function () {
+  const url = await browser.getCurrentUrl();
+  expect(url).to.include("job-listings/job");
 });
 Then(/should have (.*) position name in the job description/, async function (positionName) {
   const position = await element(by.css(".form-component__description div")).getText();
@@ -101,7 +111,7 @@ async function selectLocation(country, city) {
 async function selectDepartment(department) {
   await element(by.css(".selected-params")).click();
   browser.wait(ec.elementToBeClickable(element(by.css(".multi-select-dropdown-container"))), GLOBAL_TIMEOUT);
-  await element(by.xpath(`//span[contains(text(),'${department}')]`)).click();
+  await element(by.cssContainingText("span", `${department}`)).click();
 }
 
 async function applyForJob(jobFormat) {
