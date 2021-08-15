@@ -51,10 +51,12 @@ Then(/the correct url should be present for the search results page/, async func
   expect(url).to.include("job-listings?");
 });
 Then(/should have a proper job found for (.*) on the (.*). position/, async function (positionName, nthJob) {
-  const jobFormat = positionName.toLowerCase().split(" ").join("-");
-  return expect(
-    element(by.css(`a.search-result__item-name[href*='.${jobFormat}']`)).isDisplayed()
-  ).to.eventually.be.true;
+  const jobName = await element
+    .all(by.css(".search-result__item"))
+    .get(nthJob - 1)
+    .element(by.cssContainingText(".search-result__item-name", positionName))
+    .getText();
+  return expect(jobName).to.equal(positionName);
 });
 Then(/the proper location in the (.*). result should be (.*)/, async function (nthJob, country) {
   const location = await element
@@ -71,12 +73,14 @@ Then(/description should be visible in the (.*). result/, async function (nthJob
     .element(by.css(".search-result__item-description"));
   return expect(desc.isDisplayed()).to.eventually.be.true;
 });
-Then(/apply button should be visible for the (.*) position/, async function (positionName) {
+Then(/apply button should be visible on the (.*). result for the (.*) position/, async function (nthJob, positionName) {
   const jobFormat = positionName.toLowerCase().split(" ").join("-");
-  const button = await element(by.css(`a.search-result__item-apply[href*='.${jobFormat}']`));
-  const buttonText = await element(by.css(`a.search-result__item-apply[href*='.${jobFormat}']`)).getText();
-  expect(button.isDisplayed()).to.eventually.be.true;
-  return expect(buttonText).to.include("VIEW AND APPLY");
+  const buttonOfJob = await element
+    .all(by.css(".search-result__item"))
+    .get(nthJob - 1)
+    .element(by.css(`.search-result__item-apply[href*='.${jobFormat}']`))
+    .getText();
+  return expect(buttonOfJob).to.include("VIEW AND APPLY");
 });
 
 Then(/the correct url should be present for the job details page/, async function () {

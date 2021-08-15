@@ -20,7 +20,7 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
   And should have a proper job found for <PositionName> on the <NthJob>. position
   And the proper location in the <NthJob>. result should be <Country>
   And description should be visible in the <NthJob>. result
-  And apply button should be visible for the <PositionName> position
+  And apply button should be visible on the <NthJob>. result for the <PositionName> position
   
   When the apply button for <PositionName> is clicked
   Then the correct url should be present for the job details page
@@ -28,6 +28,6 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
   And should have <Country> country in the job description
 
   Examples:
-    | Country | City     | Department                | PositionName                     | Tnum | NthJob |
-    | Hungary | Debrecen | Software Test Engineering | Test Automation Engineer         | 1    | 5      |
-    | Belarus | Minsk    | Software Architecture     | DevOps Architect                 | 2    | 1      |
+    | Country | City     | Department                | PositionName              | NthJob | Tnum |
+    | Hungary | Debrecen | Software Test Engineering | Test Automation Engineer  | 5      | 1    |
+    | Belarus | Minsk    | Software Architecture     | DevOps Architect          | 1      | 2    |
