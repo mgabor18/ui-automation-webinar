@@ -20,7 +20,7 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
   And should have a proper job found for <PositionName> on the <NthJob>. position
   And the proper location in the <NthJob>. result should be <Country>
   And description should be visible in the <NthJob>. result
-  And apply button should be visible on the <NthJob>. result for the <PositionName> position
+  And apply button should be visible on the <NthJob>. result
   
   When the apply button for <PositionName> is clicked
   Then the correct url should be present for the job details page
