@@ -1,0 +1,14 @@
+[
+  {
+    "country": "Belarus",
+    "city": "Minsk",
+    "department": "Software Architecture",
+    "positionName": "DevOps Architect"
+  },
+  {
+    "country": "Hungary",
+    "city": "Debrecen",
+    "department": "Software Test Engineering",
+    "positionName": "Test Automation Engineer"
+  }
+]
