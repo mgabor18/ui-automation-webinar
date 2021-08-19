@@ -3,12 +3,14 @@
     "country": "Belarus",
     "city": "Minsk",
     "department": "Software Architecture",
-    "positionName": "DevOps Architect"
+    "positionName": "DevOps Architect",
+    "nthJob": "1"
   },
   {
     "country": "Hungary",
     "city": "Debrecen",
     "department": "Software Test Engineering",
-    "positionName": "Test Automation Engineer"
+    "positionName": "Test Automation Engineer",
+    "nthJob": "5"
   }
 ]
