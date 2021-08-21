@@ -8,6 +8,7 @@
     "wd:update": "webdriver-manager update",
     "test:cucumber-firefox": "protractor ./cucumber/protractor-firefox.config.js",
     "test:cucumber-chrome": "protractor ./cucumber/protractor-chrome.config.js",
+    "test:cucumber-parallel": "protractor ./cucumber/protractor-parallel.config.js",
     "test:cucumber-grid": "protractor ./cucumber/selenium-grid.config.js",
     "test:mocha": "protractor ./mocha/protractor.config.js",
     "startGridHub": "java -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role hub",
