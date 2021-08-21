@@ -6,6 +6,9 @@ exports.config = {
   specs: "features/**/*.feature",
   capabilities: {
     browserName: "firefox",
+    "moz:firefoxOptions": {
+      binary: "C:/Program Files/Mozilla Firefox/firefox.exe",
+    },
   },
   directConnect: true,
   cucumberOpts: {

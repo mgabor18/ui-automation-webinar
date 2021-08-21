@@ -6,7 +6,14 @@ exports.config = {
   specs: "features/**/*.feature",
   multiCapabilities: [
     { browserName: "chrome", shardTestFiles: true, maxInstances: 2 },
-    { browserName: "firefox", shardTestFiles: true, maxInstances: 2 },
+    {
+      browserName: "firefox",
+      "moz:firefoxOptions": {
+        binary: "C:/Program Files/Mozilla Firefox/firefox.exe",
+      },
+      shardTestFiles: true,
+      maxInstances: 2,
+    },
   ],
   usingServer: "http://localhost:4444/wd/hub",
   directConnect: false,

@@ -46,7 +46,7 @@ class SearchResultPage {
   }
 
   async waitForSearchResultList() {
-    browser.wait(ec.presenceOf(this.searchResults), GLOBAL_TIMEOUT);
+    return browser.wait(ec.presenceOf(this.searchResults), GLOBAL_TIMEOUT);
   }
 }
 
