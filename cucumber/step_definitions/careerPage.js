@@ -3,9 +3,9 @@
 const { Given, When, Then, Before, setDefaultTimeout } = require("cucumber");
 const { expect } = require("chai");
 const { element, browser } = require("protractor");
-const CareerPage = require("../page_objects/basePage");
-const SearchResultPage = require("../page_objects/searchResultPage");
-const JobDescriptionPage = require("../page_objects/jobDescriptionPage");
+const CareerPage = require("../../page_objects/basePage");
+const SearchResultPage = require("../../page_objects/searchResultPage");
+const JobDescriptionPage = require("../../page_objects/jobDescriptionPage.js");
 const careerPage = new CareerPage();
 const searchResultPage = new SearchResultPage();
 const jobDescriptionPage = new JobDescriptionPage();
@@ -36,8 +36,8 @@ When(/the search button is clicked/, async function () {
   return careerPage.search();
 });
 
-When(/the apply button for (.*) is clicked/, async function (positionName) {
-  return searchResultPage.clickJobApplyButton(positionName);
+When(/the apply button on the (.*) is clicked/, async function (nthJob) {
+  return searchResultPage.clickJobApplyButton(nthJob);
 });
 
 Then(/the logo should be visible/, async function () {
@@ -61,19 +61,19 @@ Then(/the correct url should be present for the search results page/, async func
 });
 
 Then(/should have a proper job found for (.*) on the (.*). position/, async function (positionName, nthJob) {
-  return expect(await searchResultPage.getJobName(positionName, nthJob)).to.equal(positionName);
+  return expect(await searchResultPage.getJobName(nthJob)).to.equal(positionName);
 });
 
 Then(/the proper location in the (.*). result should be (.*)/, async function (nthJob, country) {
-  return expect(await searchResultPage.getJobLocation(nthJob, country)).to.include(country.toUpperCase());
+  return expect(await searchResultPage.getJobLocation(nthJob)).to.include(country.toUpperCase());
 });
 
 Then(/description should be visible in the (.*). result/, async function (nthJob) {
-  return expect(searchResultPage.getJobDescription(nthJob)).to.eventually.be.true;
+  return expect(searchResultPage.isJobDescriptionVisible(nthJob)).to.eventually.be.true;
 });
 
 Then(/apply button should be visible on the (.*). result/, async function (nthJob) {
-  return expect(searchResultPage.getJobApplyButton(nthJob)).to.eventually.be.true;
+  return expect(searchResultPage.isJobApplyButtonVisible(nthJob)).to.eventually.be.true;
 });
 
 Then(/the correct url should be present for the job details page/, async function () {
@@ -81,9 +81,9 @@ Then(/the correct url should be present for the job details page/, async functio
 });
 
 Then(/should have (.*) position name in the job description/, async function (positionName) {
-  return expect(await jobDescriptionPage.getPositionName()).to.equal(positionName);
+  return expect(await jobDescriptionPage.getLabel(jobDescriptionPage.position)).to.equal(positionName);
 });
 
 Then(/should have (.*) country in the job description/, async function (country) {
-  return expect(await jobDescriptionPage.getLocation()).to.include(country.toUpperCase());
+  return expect(await jobDescriptionPage.getLabel(jobDescriptionPage.location)).to.include(country.toUpperCase());
 });

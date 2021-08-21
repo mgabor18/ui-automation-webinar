@@ -22,12 +22,12 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
   And description should be visible in the <NthJob>. result
   And apply button should be visible on the <NthJob>. result
   
-  When the apply button for <PositionName> is clicked
+  When the apply button on the <NthJob> is clicked
   Then the correct url should be present for the job details page
   And should have <PositionName> position name in the job description
   And should have <Country> country in the job description
 
   Examples:
     | Country | City     | Department                | PositionName              | NthJob | Tnum |
-    | Hungary | Debrecen | Software Test Engineering | Test Automation Engineer  | 5      | 1    |
+    #| Hungary | Debrecen | Software Test Engineering | Test Automation Engineer  | 5      | 1    |
     | Belarus | Minsk    | Software Architecture     | DevOps Architect          | 1      | 2    |

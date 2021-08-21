@@ -8,12 +8,8 @@ class JobDescriptionPage {
     return await browser.getCurrentUrl();
   }
 
-  async getPositionName() {
-    return await this.position.getText();
-  }
-
-  async getLocation() {
-    return await this.location.getText();
+  async getLabel(selector) {
+    return await selector.getText();
   }
 }
 

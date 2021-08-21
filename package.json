@@ -6,8 +6,12 @@
   "scripts": {
     "postinstall": "npm run wd:update",
     "wd:update": "webdriver-manager update",
-    "test:cucumber": "protractor ./cucumber/protractor.config.js",
-    "test:mocha": "protractor ./mocha/protractor.config.js"
+    "test:cucumber-firefox": "protractor ./cucumber/protractor-firefox.config.js",
+    "test:cucumber-chrome": "protractor ./cucumber/protractor-chrome.config.js",
+    "test:cucumber-grid": "protractor ./cucumber/selenium-grid.config.js",
+    "test:mocha": "protractor ./mocha/protractor.config.js",
+    "startGridHub": "java -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role hub",
+    "startNode": "java -Dwebdriver.chrome.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_92.0.4515.107.exe -Dwebdriver.gecko.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.29.1.exe -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role node -nodeConfig cucumber/nodeConfig.json"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +22,8 @@
     "mocha": "^8.2.1",
     "protractor": "^7.0.0",
     "protractor-cucumber-framework": "^6.2.1",
-    "require-it": "^2.0.0"
+    "require-it": "^2.0.0",
+    "selenium-webdriver": "^4.0.0-beta.4",
+    "webdriver-manager": "^12.1.8"
   }
 }

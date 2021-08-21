@@ -3,9 +3,9 @@
 const { expect } = require("chai");
 const { element, browser } = require("protractor");
 const data = require("../data/data.json");
-const CareerPage = require("../page_objects/basePage");
-const SearchResultPage = require("../page_objects/searchResultPage");
-const JobDescriptionPage = require("../page_objects/jobDescriptionPage");
+const CareerPage = require("../../page_objects/basePage");
+const SearchResultPage = require("../../page_objects/searchResultPage");
+const JobDescriptionPage = require("../../page_objects/jobDescriptionPage.js");
 const careerPage = new CareerPage();
 const searchResultPage = new SearchResultPage();
 const jobDescriptionPage = new JobDescriptionPage();
@@ -58,23 +58,19 @@ data.forEach(testData => {
         });
 
         it("should have proper job found ", async () => {
-          expect(await searchResultPage.getJobName(testData.positionName, testData.nthJob)).to.equal(
-            testData.positionName
-          );
+          expect(await searchResultPage.getJobName(testData.nthJob)).to.equal(testData.positionName);
         });
 
         it("should have job with proper location", async () => {
-          expect(await searchResultPage.getJobLocation(testData.nthJob, testData.country)).to.include(
-            testData.country.toUpperCase()
-          );
+          expect(await searchResultPage.getJobLocation(testData.nthJob)).to.include(testData.country.toUpperCase());
         });
 
         it("should have job with description", async () => {
-          expect(searchResultPage.getJobDescription(testData.nthJob)).to.eventually.be.true;
+          expect(searchResultPage.isJobDescriptionVisible(testData.nthJob)).to.eventually.be.true;
         });
 
         it("should have apply button for job", async () => {
-          expect(searchResultPage.getJobApplyButton(testData.nthJob)).to.eventually.be.true;
+          expect(searchResultPage.isJobApplyButtonVisible(testData.nthJob)).to.eventually.be.true;
         });
       });
 
@@ -83,15 +79,17 @@ data.forEach(testData => {
           await careerPage.selectLocation(testData.country, testData.city);
           await careerPage.selectDepartment(testData.department);
           await careerPage.search();
-          await searchResultPage.clickJobApplyButton(testData.positionName);
+          await searchResultPage.clickJobApplyButton(testData.nthJob);
         });
 
         it("should have displayed the name of the position", async () => {
-          expect(await jobDescriptionPage.getPositionName()).to.equal(testData.positionName);
+          expect(await jobDescriptionPage.getLabel(jobDescriptionPage.position)).to.equal(testData.positionName);
         });
 
         it("should have displayed the city of the position", async () => {
-          expect(await jobDescriptionPage.getLocation()).to.include(testData.country.toUpperCase());
+          expect(await jobDescriptionPage.getLabel(jobDescriptionPage.location)).to.include(
+            testData.country.toUpperCase()
+          );
         });
       });
     });
