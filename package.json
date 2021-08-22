@@ -10,7 +10,10 @@
     "test:cucumber-chrome": "protractor ./cucumber/config/protractor-chrome.config.js",
     "test:cucumber-parallel": "protractor ./cucumber/config/protractor-parallel.config.js",
     "test:cucumber-grid": "protractor ./cucumber/config/selenium-grid.config.js",
-    "test:mocha": "protractor ./mocha/protractor.config.js",
+    "test:mocha-firefox": "protractor ./mocha/config/protractor-firefox.config.js",
+    "test:mocha-chrome": "protractor ./mocha/config/protractor-chrome.config.js",
+    "test:mocha-parallel": "protractor ./mocha/config/protractor-parallel.config.js",
+    "test:mocha-grid": "protractor ./mocha/config/protractor-grid.config.js",
     "startGridHub": "java -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role hub",
     "startNode": "java -Dwebdriver.chrome.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_92.0.4515.107.exe -Dwebdriver.gecko.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.29.1.exe -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role node -nodeConfig cucumber/config/nodeConfig.json"
   },
@@ -28,6 +31,7 @@
     "webdriver-manager": "^12.1.8"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.7"
+    "jsdoc": "^3.6.7",
+    "mochawesome-screenshots": "^1.7.3"
   }
 }
