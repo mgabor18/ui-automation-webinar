@@ -25,10 +25,17 @@ class CarrerPage {
     };
   }
 
+  /**
+   * Loads the webpage
+   * @returns {PromiseLike<void>}
+   */
   async load() {
     return browser.get(this.url);
   }
 
+  /**
+   * Clicks the cookie bar button
+   */
   async cookieClicker() {
     let isPresent = await this.cookieButtonElement.isPresent();
     if (isPresent) {
@@ -36,6 +43,11 @@ class CarrerPage {
     }
   }
 
+  /**
+   * Selects the location in the searchforms dropdown menu
+   * @param {string} country Name of the country we search for
+   * @param {string} city Name of the city we search for
+   */
   async selectLocation(country, city) {
     if ((await this.renderedCity.getText()) !== city) {
       await this.locationFilterArrow.click();
@@ -46,16 +58,29 @@ class CarrerPage {
     }
   }
 
+  /**
+   * Selects the department in the searchforms department checkbox menu
+   * @param {string} department Name of the department we search for
+   */
   async selectDepartment(department) {
     await this.departmentFilterArrow.click();
     browser.wait(ec.elementToBeClickable(this.departmentContainer), GLOBAL_TIMEOUT);
     await this.departmentCheckbox(department).click();
   }
 
+  /**
+   * Checks if the correct department checkbox is checked
+   * @param {string} department Name of the department we search for
+   * @returns {promise.Promise<boolean>}
+   */
   async correctDepartment(department) {
     return this.departmentInput(department).isEnabled();
   }
 
+  /**
+   * Clicks the searchforms search button
+   * @returns {promise.Promise<void>}
+   */
   async search() {
     return await this.searchButton.click();
   }
