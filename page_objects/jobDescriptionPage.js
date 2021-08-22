@@ -5,11 +5,17 @@ class JobDescriptionPage {
   }
 
   async urlOfJobDescriptionPage() {
+    await this.waitForJobDescriptionPageToLoad();
     return await browser.getCurrentUrl();
   }
 
   async getLabel(selector) {
+    await this.waitForJobDescriptionPageToLoad();
     return await selector.getText();
+  }
+
+  waitForJobDescriptionPageToLoad() {
+    return browser.wait(ec.presenceOf(this.position), GLOBAL_TIMEOUT);
   }
 }
 

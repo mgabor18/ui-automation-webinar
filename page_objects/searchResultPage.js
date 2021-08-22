@@ -1,7 +1,6 @@
 class SearchResultPage {
   constructor() {
     this.searchResults = element.all(by.css(".search-result__item"));
-    this.form = element(by.css(".form-component__description div"));
     this.jobName = nthJob => {
       return this.searchResults.get(nthJob - 1).element(by.css(".search-result__item-name"));
     };
@@ -41,8 +40,7 @@ class SearchResultPage {
   }
 
   async clickJobApplyButton(nthJob) {
-    await this.jobApplyButton(nthJob).click();
-    browser.wait(ec.presenceOf(this.form), GLOBAL_TIMEOUT);
+    return await this.jobApplyButton(nthJob).click();
   }
 
   async waitForSearchResultList() {

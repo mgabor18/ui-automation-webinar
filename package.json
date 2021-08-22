@@ -6,13 +6,13 @@
   "scripts": {
     "postinstall": "npm run wd:update",
     "wd:update": "webdriver-manager update",
-    "test:cucumber-firefox": "protractor ./cucumber/protractor-firefox.config.js",
-    "test:cucumber-chrome": "protractor ./cucumber/protractor-chrome.config.js",
-    "test:cucumber-parallel": "protractor ./cucumber/protractor-parallel.config.js",
-    "test:cucumber-grid": "protractor ./cucumber/selenium-grid.config.js",
+    "test:cucumber-firefox": "protractor ./cucumber/config/protractor-firefox.config.js",
+    "test:cucumber-chrome": "protractor ./cucumber/config/protractor-chrome.config.js",
+    "test:cucumber-parallel": "protractor ./cucumber/config/protractor-parallel.config.js",
+    "test:cucumber-grid": "protractor ./cucumber/config/selenium-grid.config.js",
     "test:mocha": "protractor ./mocha/protractor.config.js",
     "startGridHub": "java -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role hub",
-    "startNode": "java -Dwebdriver.chrome.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_92.0.4515.107.exe -Dwebdriver.gecko.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.29.1.exe -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role node -nodeConfig cucumber/nodeConfig.json"
+    "startNode": "java -Dwebdriver.chrome.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_92.0.4515.107.exe -Dwebdriver.gecko.driver=./node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.29.1.exe -jar ./node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar -role node -nodeConfig cucumber/config/nodeConfig.json"
   },
   "author": "",
   "license": "ISC",
@@ -26,5 +26,8 @@
     "require-it": "^2.0.0",
     "selenium-webdriver": "^4.0.0-beta.4",
     "webdriver-manager": "^12.1.8"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
   }
 }

@@ -3,22 +3,16 @@
 const GLOBAL_TIMEOUT = 40e3;
 
 exports.config = {
-  specs: "features/**/*.feature",
-  multiCapabilities: [
-    { browserName: "chrome", shardTestFiles: true, maxInstances: 2 },
-    {
-      browserName: "firefox",
-      "moz:firefoxOptions": {
-        binary: "C:/Program Files/Mozilla Firefox/firefox.exe",
-      },
-      shardTestFiles: true,
-      maxInstances: 2,
+  specs: "../features/*.feature",
+  capabilities: {
+    browserName: "firefox",
+    "moz:firefoxOptions": {
+      binary: "C:/Program Files/Mozilla Firefox/firefox.exe",
     },
-  ],
-  usingServer: "http://localhost:4444/wd/hub",
-  directConnect: false,
+  },
+  directConnect: true,
   cucumberOpts: {
-    require: ["./step_definitions/**/*.js"],
+    require: ["../step_definitions/*.js"],
     tags: ["~@wip"],
     format: ["progress", "json:cucumber.json"],
   },
