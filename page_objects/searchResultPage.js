@@ -24,43 +24,23 @@ class SearchResultPage {
   }
 
   /**
-   * Gets the name of the job on the given position
-   * @param {number} nthJob the position of the job in the search result list
-   * @returns {string}
-   */
-  async getJobName(nthJob) {
-    await this.waitForSearchResultList();
-    return await this.jobName(nthJob).getText();
-  }
-
-  /**
-   * Gets the location of the job on the given position
-   * @param {number} nthJob the position of the job in the search result list
-   * @returns {string}
-   */
-  async getJobLocation(nthJob) {
-    await this.waitForSearchResultList();
-    return await this.jobLocation(nthJob).getText();
-  }
-
-  /**
-   * Checks if the description of a search result is visible on the given position
-   * @param {number} nthJob the position of the job in the search result list
+   * Gets the text of given element
+   * @param {element} selector
    * @returns {promise.Promise<boolean>}
    */
-  async isJobDescriptionVisible(nthJob) {
+  async getJobElementText(selector) {
     await this.waitForSearchResultList();
-    return await this.jobDescription(nthJob).isDisplayed();
+    return await selector.getText();
   }
 
   /**
-   * Checks if the description of a search result is visible on the given position
-   * @param {number} nthJob the position of the job in the search result list
-   * @returns {promise.Promise<boolean>}
+   *  Checks if the given element is visible
+   * @param {element} selector
+   * @returns {promise.Promise<void>}
    */
-  async isJobApplyButtonVisible(nthJob) {
+  async isElementVisible(selector) {
     await this.waitForSearchResultList();
-    return await this.jobApplyButton(nthJob).isDisplayed();
+    return await selector.isDisplayed();
   }
 
   /**
@@ -69,7 +49,7 @@ class SearchResultPage {
    * @returns {promise.Promise<void>}
    */
   async clickJobApplyButton(nthJob) {
-    return await this.jobApplyButton(nthJob).click();
+    return this.jobApplyButton(nthJob).click();
   }
 
   /**

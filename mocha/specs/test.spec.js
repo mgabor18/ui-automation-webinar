@@ -58,19 +58,24 @@ data.forEach(testData => {
         });
 
         it("should have proper job found ", async () => {
-          expect(await searchResultPage.getJobName(testData.nthJob)).to.equal(testData.positionName);
+          expect(await searchResultPage.getJobElementText(searchResultPage.jobName(testData.nthJob))).to.equal(
+            testData.positionName
+          );
         });
 
         it("should have job with proper location", async () => {
-          expect(await searchResultPage.getJobLocation(testData.nthJob)).to.include(testData.country.toUpperCase());
+          expect(await searchResultPage.getJobElementText(searchResultPage.jobLocation(testData.nthJob))).to.include(
+            testData.country.toUpperCase()
+          );
         });
 
         it("should have job with description", async () => {
-          expect(searchResultPage.isJobDescriptionVisible(testData.nthJob)).to.eventually.be.true;
+          expect(searchResultPage.isElementVisible(searchResultPage.jobDescription(testData.nthJob))).to.eventually.be
+            .true;
         });
 
         it("should have apply button for job", async () => {
-          expect(searchResultPage.isJobApplyButtonVisible(testData.nthJob)).to.eventually.be.true;
+          expect(searchResultPage.isElementVisible(searchResultPage.jobApplyButton(testData.nthJob))).to.eventually.be.true;
         });
       });
 

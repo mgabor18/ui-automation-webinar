@@ -61,19 +61,21 @@ Then(/the correct url should be present for the search results page/, async func
 });
 
 Then(/should have a proper job found for (.*) on the (.*). position/, async function (positionName, nthJob) {
-  return expect(await searchResultPage.getJobName(nthJob)).to.equal(positionName);
+  return expect(await searchResultPage.getJobElementText(searchResultPage.jobName(nthJob))).to.equal(positionName);
 });
 
 Then(/the proper location in the (.*). result should be (.*)/, async function (nthJob, country) {
-  return expect(await searchResultPage.getJobLocation(nthJob)).to.include(country.toUpperCase());
+  return expect(await searchResultPage.getJobElementText(searchResultPage.jobLocation(nthJob))).to.include(
+    country.toUpperCase()
+  );
 });
 
 Then(/description should be visible in the (.*). result/, async function (nthJob) {
-  return expect(searchResultPage.isJobDescriptionVisible(nthJob)).to.eventually.be.true;
+  return expect(searchResultPage.isElementVisible(searchResultPage.jobDescription(nthJob))).to.eventually.be.true;
 });
 
 Then(/apply button should be visible on the (.*). result/, async function (nthJob) {
-  return expect(searchResultPage.isJobApplyButtonVisible(nthJob)).to.eventually.be.true;
+  return expect(searchResultPage.isElementVisible(searchResultPage.jobApplyButton(nthJob))).to.eventually.be.true;
 });
 
 Then(/the correct url should be present for the job details page/, async function () {
