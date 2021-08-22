@@ -29,4 +29,4 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
 
   Examples:
     | Country | City     | Department                | PositionName              | NthJob | Tnum |
-    | Hungary | Szeged   | Software Test Engineering | Software Testing Engineer | 4      | 1    |
+    | Hungary | Debrecen | Software Test Engineering | Test Automation Engineer  | 5      | 1    |

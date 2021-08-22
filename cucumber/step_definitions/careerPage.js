@@ -2,7 +2,6 @@
 
 const { Given, When, Then, Before, setDefaultTimeout } = require("cucumber");
 const { expect } = require("chai");
-const { element, browser } = require("protractor");
 const CareerPage = require("../../page_objects/basePage");
 const SearchResultPage = require("../../page_objects/searchResultPage");
 const JobDescriptionPage = require("../../page_objects/jobDescriptionPage.js");

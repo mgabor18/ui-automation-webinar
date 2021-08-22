@@ -49,7 +49,8 @@ class SearchResultPage {
    * @returns {promise.Promise<void>}
    */
   async clickJobApplyButton(nthJob) {
-    return this.jobApplyButton(nthJob).click();
+    await this.waitForSearchResultList();
+    return await this.jobApplyButton(nthJob).click();
   }
 
   /**

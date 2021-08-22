@@ -61,11 +61,12 @@ class CarrerPage {
   /**
    * Selects the department in the searchforms department checkbox menu
    * @param {string} department Name of the department we search for
+   * @returns {promise.Promise<void>}
    */
   async selectDepartment(department) {
     await this.departmentFilterArrow.click();
     browser.wait(ec.elementToBeClickable(this.departmentContainer), GLOBAL_TIMEOUT);
-    await this.departmentCheckbox(department).click();
+    return await this.departmentCheckbox(department).click();
   }
 
   /**
@@ -74,7 +75,7 @@ class CarrerPage {
    * @returns {promise.Promise<boolean>}
    */
   async correctDepartment(department) {
-    return this.departmentInput(department).isEnabled();
+    return await this.departmentInput(department).isEnabled();
   }
 
   /**
