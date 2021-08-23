@@ -14,6 +14,9 @@ class CarrerPage {
     this.selectCountry = country => {
       return element(by.css(`li[aria-label="${country}"]`));
     };
+    this.dropdownCountry = country => {
+      return element(by.css(`li.dropdown-cities[aria-label="${country}"]`));
+    };
     this.selectCity = city => {
       return element(by.css(`[id*="${city}"]`));
     };
@@ -52,7 +55,9 @@ class CarrerPage {
     if ((await this.renderedCity.getText()) !== city) {
       await this.locationFilterArrow.click();
       browser.sleep(1000);
-      await this.selectCountry(country).click();
+      if (!(await this.dropdownCountry(country).isPresent())) {
+        await this.selectCountry(country).click();
+      }
       browser.wait(ec.elementToBeClickable(this.selectCity(city)), GLOBAL_TIMEOUT);
       await this.selectCity(city).click();
     }

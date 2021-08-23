@@ -29,7 +29,7 @@ class SearchResultPage {
    * @returns {promise.Promise<boolean>}
    */
   async getJobElementText(selector) {
-    await this.waitForSearchResultList();
+    await this.waitForSearchResultListElement(selector);
     return await selector.getText();
   }
 
@@ -39,7 +39,7 @@ class SearchResultPage {
    * @returns {promise.Promise<void>}
    */
   async isElementVisible(selector) {
-    await this.waitForSearchResultList();
+    await this.waitForSearchResultListElement(selector);
     return await selector.isDisplayed();
   }
 
@@ -49,16 +49,17 @@ class SearchResultPage {
    * @returns {promise.Promise<void>}
    */
   async clickJobApplyButton(nthJob) {
-    await this.waitForSearchResultList();
+    await this.waitForSearchResultListElement(this.jobApplyButton(nthJob));
     return await this.jobApplyButton(nthJob).click();
   }
 
   /**
-   * Waits for the page element to be present
+   *    * Waits for the page element to be present
+   * @param {element} selector
    * @returns {WebElementPromise}
    */
-  async waitForSearchResultList() {
-    return browser.wait(ec.presenceOf(this.searchResults), GLOBAL_TIMEOUT);
+  async waitForSearchResultListElement(selector) {
+    return browser.wait(ec.presenceOf(selector), GLOBAL_TIMEOUT);
   }
 }
 

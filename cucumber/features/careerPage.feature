@@ -29,4 +29,4 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
 
   Examples:
     | Country | City     | Department                | PositionName              | NthJob | Tnum |
-    | Belarus | Minsk    | Software Architecture     | DevOps Architect          | 1      | 2    |
+    | Belarus | Minsk    | Software Architecture     | DevOps Architect          | 1      | 1    |

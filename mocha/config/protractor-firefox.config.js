@@ -3,7 +3,7 @@
 const GLOBAL_TIMEOUT = 40e3;
 
 exports.config = {
-  specs: "../specs/*.spec.js",
+  specs: "../specs/test.spec.js",
   capabilities: {
     browserName: "firefox",
     "moz:firefoxOptions": {
