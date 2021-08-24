@@ -1,4 +1,4 @@
-Feature: EPAM job searching
+Feature: EPAM job searching 2
   As a Job searcher
   I want to browse through EPAM Job offers by various criteria
   So I can find to best fitting offer for me
@@ -29,4 +29,4 @@ Scenario Outline: <Tnum>. Search for <PositionName> in <City>
 
   Examples:
     | Country | City     | Department                | PositionName              | NthJob | Tnum |
-    | Belarus | Minsk    | Software Architecture     | DevOps Architect          | 1      | 1    |
+    | Hungary | Debrecen | Software Test Engineering | Test Automation Engineer  | 5      | 2    |

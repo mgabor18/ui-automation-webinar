@@ -20,7 +20,7 @@ data.forEach(testData => {
 
     describe("Careers page", () => {
       it("should be opened", () => {
-        expect(careerPage.header.logo.isDisplayed()).to.eventually.be.true;
+        expect(careerPage.logo.isDisplayed()).to.eventually.be.true;
       });
     });
 
