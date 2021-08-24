@@ -6,14 +6,7 @@ exports.config = {
   specs: "../features/*.feature",
   multiCapabilities: [
     { browserName: "chrome", shardTestFiles: true, maxInstances: 1 },
-    {
-      browserName: "firefox",
-      "moz:firefoxOptions": {
-        binary: "C:/Program Files/Mozilla Firefox/firefox.exe",
-      },
-      shardTestFiles: true,
-      maxInstances: 1,
-    },
+    { browserName: "chrome", shardTestFiles: true, maxInstances: 1 },
   ],
   directConnect: true,
   cucumberOpts: {

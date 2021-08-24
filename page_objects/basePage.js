@@ -70,6 +70,7 @@ class CarrerPage {
    */
   async selectDepartment(department) {
     await this.departmentFilterArrow.click();
+    browser.sleep(1000);
     browser.wait(ec.elementToBeClickable(this.departmentContainer), GLOBAL_TIMEOUT);
     return await this.departmentCheckbox(department).click();
   }
