@@ -1,5 +1,8 @@
-class SearchResultPage {
+const Application = require("./application");
+
+class SearchResultPage extends Application {
   constructor() {
+    super();
     this.searchResults = element.all(by.css(".search-result__item"));
     this.jobName = nthJob => {
       return this.searchResults.get(nthJob - 1).element(by.css(".search-result__item-name"));

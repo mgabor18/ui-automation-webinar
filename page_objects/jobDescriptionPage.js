@@ -1,5 +1,8 @@
-class JobDescriptionPage {
+const Application = require("./application");
+
+class JobDescriptionPage extends Application {
   constructor() {
+    super();
     this.position = element(by.css(".form-component__description div"));
     this.location = element(by.css(".form-component__location"));
   }

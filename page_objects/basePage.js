@@ -1,9 +1,10 @@
 const { browser } = require("protractor");
+const Application = require("./application");
 
-class CarrerPage {
+class CarrerPage extends Application {
   constructor() {
+    super();
     this.url = "https://www.epam.com/careers";
-    this.logo = element(by.css(".header__logo"));
     this.cookieButtonElement = element(by.css(".cookie-disclaimer__button"));
     this.searchForm = element(by.css(".job-search__form"));
     this.renderedCity = element(by.css(".select2-selection__rendered"));

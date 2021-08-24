@@ -40,7 +40,7 @@ When(/the apply button on the (.*) is clicked/, async function (nthJob) {
 });
 
 Then(/the logo should be visible/, async function () {
-  return expect(careerPage.logo.isDisplayed()).to.eventually.be.true;
+  return expect(careerPage.header.logo.isDisplayed()).to.eventually.be.true;
 });
 
 Then(/the searchform should be visible/, async function () {
