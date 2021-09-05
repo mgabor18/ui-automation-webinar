@@ -1,11 +1,57 @@
 let mongoose = require("mongoose");
 const Job = require("./model");
+
+class DataProvider {
+  constructor() {
+    this.fData = [];
+  }
+
+  async connect() {
+    await mongoose.connect("mongodb://localhost:27017/testDB");
+  }
+
+  async disconnect() {
+    await mongoose.disconnect();
+  }
+
+  async putData(data) {
+    await this.connect();
+    for (let testData of data) {
+      const job = new Job(testData);
+      await job.save();
+    }
+    await this.disconnect();
+  }
+
+  async getData() {
+    await this.connect();
+    const jobs = await Job.find();
+    await this.disconnect();
+    return jobs;
+  }
+
+  async deleteData(data) {
+    await this.connect();
+    for (let delData of data) {
+      await Job.deleteOne({ city: delData.city }, err => {
+        if (err) console.log(err);
+      }).clone(); // clone nélkül nem hajlandó futtatni a parancsot, mert hogy már ez a query futtatva volt? nem is értettem
+    }
+    //kókány megoldás de máshogy egyszerűen nem várta be a törléseket...
+    setTimeout(async () => {
+      await this.disconnect();
+    }, 100);
+  }
+}
+module.exports = DataProvider;
+
+/*let mongoose = require("mongoose");
+const Job = require("./model");
 const data = require("./data.json");
 let fData = [];
 
 async function connect() {
-  //sima connect, ez okés
-  return await mongoose.connect("mongodb://localhost:27017/testDB");
+  await mongoose.connect("mongodb://localhost:27017/testDB");
 }
 
 async function disconnect() {
@@ -13,45 +59,40 @@ async function disconnect() {
 }
 
 async function putData() {
-  //végigmegyek a json-ön és egyesével hozzáadom az adatbázishoz, + kiírja hogy hozzáadta a documentet
-  data.forEach(async testData => {
-    const putData = new Job(testData);
-    await putData.save().then(() => {
-      console.log("Document added");
-    });
-  });
+  await connect();
+  for (let testData of data) {
+    const job = new Job(testData);
+    await job.save();
+  }
+  await disconnect();
 }
 
 async function getData() {
-  //simán kiszedem az adatbázisból a documenteket amik illeszkednek nyilván
+  await connect();
   const jobs = await Job.find();
-  console.log("getjob: " + jobs);
+  await disconnect();
   return jobs;
 }
 
 async function deleteData() {
-  //törlöm az adatbázisból a dokumenteket egyesével, az eredeti json alapján
-  data.forEach(data => {
-    Job.deleteOne({ city: data.city }, function (err) {
-      if (err) console.log(err);
-      console.log("Successful deletion");
-    });
-  });
-}
-// A probléma itt kezdődik szerintem
-async function main() {
-  //végig awaitezek ugye, csatlakozom a mongodb-hez
   await connect();
-  //behelyezném az adatokat, egyébként gyönyörűen megjelennek a compassban látom
+  for (let delData of data) {
+    await Job.deleteOne({ city: delData.city }, err => {
+      if (err) console.log(err);
+      console.log("deleted");
+    }).clone();
+  }
+  setTimeout(async () => {
+    await disconnect();
+  }, 10);
+}
+
+async function main() {
   await putData();
-  // elmenteném a mongodb-ből beolvasottakat
   fData = await getData();
-  //az összes console log előbb lefut mint bármelyik függvény hívás?! whyyy (a getData-n belüli is)
-  console.log("fdata: " + fData);
-  //ezzel csak törölnék ami működik is, de egyenlőre enélkül is szenvedős, de ha nem törlöm kézzel akkor ugye feltorlódik ha többször futtatom
-  //await deleteData();
-  //a disconnect sem működik SEHOL, akárhol próbálom instant hibát dobott
-  //await disconnect();
+  console.log(fData);
+  await deleteData();
   return fData;
 }
 main().catch(err => console.log(err));
+*/
