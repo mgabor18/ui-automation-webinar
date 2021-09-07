@@ -22,6 +22,7 @@ exports.config = {
       multiReport: false,
     },
     timeout: 600000,
+    delay: true,
   },
   framework: "mocha",
   getPageTimeout: GLOBAL_TIMEOUT,
