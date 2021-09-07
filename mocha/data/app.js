@@ -12,9 +12,9 @@ class DataProvider {
     await mongoose.disconnect();
   }
 
-  async dropCollection() {
+  async dropCollection(schema) {
     await this.connect();
-    await Job.collection.drop();
+    await schema.collection.drop();
     await this.disconnect();
   }
 

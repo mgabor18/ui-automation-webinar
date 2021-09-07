@@ -2,6 +2,8 @@
 
 const { expect } = require("chai");
 const data = require("../data/data.json");
+
+const Job = require("../data/model");
 const CareerPage = require("../../page_objects/basePage");
 const SearchResultPage = require("../../page_objects/searchResultPage");
 const JobDescriptionPage = require("../../page_objects/jobDescriptionPage");
@@ -108,5 +110,5 @@ dataProvider
     run();
   })
   .finally(() => {
-    dataProvider.dropCollection();
+    dataProvider.dropCollection(Job);
   });
